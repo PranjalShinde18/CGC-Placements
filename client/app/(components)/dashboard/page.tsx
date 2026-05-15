@@ -67,7 +67,7 @@
 //     const fetchJobs = async () => {
 //       try {
 
-//         const response = await fetch("https://cgc-placements.onrender.com/job/get");
+//         const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/job/get`);
 
 //         const data: Job[] = await response.json();
 
@@ -287,7 +287,7 @@ const Dashboard = () => {
     const fetchJobs = async () => {
       try {
 
-        const response = await fetch("https://cgc-placements.onrender.com/job/get");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/job/get`);
 
         const data: Job[] = await response.json();
 

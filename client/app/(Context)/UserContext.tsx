@@ -176,7 +176,7 @@ import {
   useState,
   ReactNode,
 } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Loader from "../(components)/(loader)/Loader";
 
 export interface IApplication {
@@ -240,8 +240,19 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
   const [initialLoadingComplete, setInitialLoadingComplete] = useState(false);
 
   const router = useRouter();
+  const pathname = usePathname();
+
+  // Routes that do NOT need an auth check
+  const PUBLIC_ROUTES = ["/", "/signin", "/signup"];
 
   useEffect(() => {
+    // Don't redirect if the user is already on a public page
+    if (PUBLIC_ROUTES.includes(pathname)) {
+      setLoading(false);
+      setInitialLoadingComplete(true);
+      return;
+    }
+
     const checkAuth = async () => {
       // Record the start time
       const start = Date.now();
@@ -252,7 +263,6 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
         router.push("/signin");
       } else {
         setUser(JSON.parse(storedUser));
-        router.push("/dashboard");
       }
 
       const elapsed = Date.now() - start;
@@ -269,7 +279,7 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
     };
 
     checkAuth();
-  }, [router]);
+  }, [pathname]);
 
   if (!initialLoadingComplete) {
     return <Loader />;

@@ -42,7 +42,7 @@ const SignUp = () => {
 
     try {
 
-      const response = await fetch("https://cgc-placements.onrender.com/student/signup", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/student/signup`, {
 
         method: "POST",
         headers: {

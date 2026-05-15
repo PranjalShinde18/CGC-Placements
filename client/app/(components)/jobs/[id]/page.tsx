@@ -52,7 +52,7 @@ interface JobData {
 async function fetchJobData(jobId: string): Promise<JobData | null> {
   try {
 
-    const response = await fetch(`https://cgc-placements.onrender.com/job/get/${jobId}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/job/get/${jobId}`);
 
     if (!response.ok) throw new Error("Failed to fetch job data");
     return await response.json();
@@ -122,7 +122,7 @@ export default function JobPage({ params }: { params: { id: string } }) {
     try {
       const response = await fetch(
 
-        `https://cgc-placements.onrender.com/student/applications/create/${jobId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/student/applications/create/${jobId}`,
 
         {
           method: "POST",

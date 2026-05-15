@@ -43,7 +43,7 @@ const Profile = () => {
     try {
       if (formDataObj.has("profile_pic")) {
         const response = await fetch(
-          "https://cgc-placements.onrender.com/student/uploadProfilePic",
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/student/uploadProfilePic`,
 
           {
             method: "PUT",
@@ -75,7 +75,7 @@ const Profile = () => {
 
       // Update other profile details
       const userResponse = await fetch(
-        "https://cgc-placements.onrender.com/student/updateProfile",
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/student/updateProfile`,
         {
           method: "PATCH",
           headers: {

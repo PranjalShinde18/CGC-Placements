@@ -84,7 +84,7 @@ const Bookmarks = () => {
   async function fetchJobData(jobId: string): Promise<Job | null> {
     try {
 
-      const response = await fetch(`https://cgc-placements.onrender.com/job/get/${jobId}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/job/get/${jobId}`);
 
       if (!response.ok) throw new Error("Failed to fetch job data");
       return await response.json();
@@ -97,7 +97,7 @@ const Bookmarks = () => {
   async function handleDeleteBookmark(jobId: string) {
     try {
       const response = await fetch(
-        `https://cgc-placements.onrender.com/student/bookmarks/delete/${jobId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/student/bookmarks/delete/${jobId}`,
         {
           method: "DELETE",
           credentials: "include",

@@ -22,7 +22,7 @@ const SignIn = () => {
 
     try {
       const response = await fetch(
-        "https://cgc-placements.onrender.com/student/signin",
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/student/signin`,
         {
           method: "POST",
           headers: {
@@ -206,7 +206,7 @@ const SignIn = () => {
           <div className="xl:w-1/2 lg:w-1/2 md:w-full sm:w-full xs:w-full xxs:w-full">
             <div className="w-full p-4 sm:p-12 xl:p-17">
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                Sign In to CGC
+                Sign In to CGC Placement Portal
               </h2>
 
               <form onSubmit={handleSubmit}>

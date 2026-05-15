@@ -31,6 +31,13 @@ app.use("/admin", adminRoute);
 // app.use('/recruiter', recruiterRoute);
 app.use("/job", jobRoute);
 
+// ── Keep-alive ping endpoint ──────────────────────────────────────────────────
+// Render's free tier shuts down after 15 min of inactivity.
+// The frontend calls this every 14 min so the server stays warm.
+app.get("/ping", (req, res) => {
+  res.status(200).json({ status: "ok", message: "Server is awake 🚀" });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on PORT: ${PORT}`);
 });

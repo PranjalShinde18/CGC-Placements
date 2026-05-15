@@ -67,6 +67,7 @@ import "./globals.css";
 import Sidebar from "./(components)/(Sidebar)/Sidebar";
 import Providers from "./providers";
 import { usePathname } from "next/navigation"; // To get the current route
+import { useKeepAlive } from "./(utils)/useKeepAlive";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -81,9 +82,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
+  useKeepAlive(); // Keeps Render's free-tier server awake
 
- 
-  const hideSidebarRoutes = ["/signin", "/signup"];
+  const hideSidebarRoutes = ["/", "/signin", "/signup"];
 
   const shouldHideSidebar = hideSidebarRoutes.includes(pathname);
 
