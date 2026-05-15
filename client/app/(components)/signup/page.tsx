@@ -69,8 +69,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className=" flex items-center justify-center p-16 bg-slate-200">
-      <div className="w-full max-w-6xl p-12 bg-white rounded-lg shadow-md">
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-8 md:p-16 bg-slate-200">
+      <div className="w-full max-w-6xl p-6 sm:p-8 md:p-12 bg-white rounded-lg shadow-md">
         <form className="flex flex-col">
           <div className="flex flex-wrap">
             <div className="w-full md:w-1/2 p-4">
