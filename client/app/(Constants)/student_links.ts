@@ -15,7 +15,7 @@ interface Link {
 export const links: Link[] = [
   {
     name: "Dashboard",
-    path: "/",
+    path: "/dashboard",
     icon: GoHomeFill,
   },
   {
