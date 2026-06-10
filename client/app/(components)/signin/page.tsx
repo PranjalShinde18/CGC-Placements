@@ -53,14 +53,11 @@ const SignIn = () => {
   };
 
   return (
-    <div className="h-screen w-screen p-32 xs:p-10 sm:p-10 md:p-10 xxs:p-10">
-      <div className="rounded-sm bg-white shadow-default">
-        <div className="flex flex-wrap items-center sm:flex-col">
-
-          <div className="w-1/6 xl:w-1/6 lg:w-1/6 md:hidden sm:hidden xs:hidden xxs:hidden"></div>
-
-          <div className="xl:w-1/3 lg:w-1/3 md:w-full sm:w-full xs:w-full xxs:w-full">
-            <div className="px-26 py-17 text-center items-center">
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-8 lg:p-12 bg-slate-50">
+      <div className="w-full max-w-5xl rounded-sm bg-white shadow-default">
+        <div className="flex flex-col md:flex-row items-stretch w-full">
+          <div className="hidden md:flex w-full md:w-1/2 p-8 flex-col justify-center items-center bg-slate-50 border-r border-slate-100 rounded-l-sm">
+            <div className="text-center items-center flex flex-col">
               <div className="flex justify-center items-center mb-10">
                 <Image
                   className="hidden dark:block"
@@ -203,7 +200,7 @@ const SignIn = () => {
             </div>
           </div>
 
-          <div className="xl:w-1/2 lg:w-1/2 md:w-full sm:w-full xs:w-full xxs:w-full">
+          <div className="w-full md:w-1/2 flex items-center justify-center">
             <div className="w-full p-4 sm:p-12 xl:p-17">
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
                 Sign In to CGC Placement Portal
@@ -274,8 +271,6 @@ const SignIn = () => {
               </form>
             </div>
           </div>
-
-          <div className="w-1/6 xl:w-1/6 lg:w-1/6 md:hidden sm:hidden xs:hidden xxs:hidden"></div>
 
         </div>
       </div>

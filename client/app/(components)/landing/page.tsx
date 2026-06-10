@@ -2,12 +2,51 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useUserContext } from "@/app/(Context)/UserContext";
 
 const DEMO_ROLL = "21BDS062";
 const DEMO_PASSWORD = "123454321";
 
 export default function LandingPage() {
   const [copiedField, setCopiedField] = useState<"roll" | "pass" | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  
+  const { setUser } = useUserContext();
+  const router = useRouter();
+
+  const handleDemoLogin = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/student/signin`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ roll_no: DEMO_ROLL, password: DEMO_PASSWORD }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setUser(data);
+        localStorage.setItem("user", JSON.stringify(data));
+        router.push("/dashboard");
+      } else {
+        setError(data.message || "An error occurred during demo sign-in.");
+      }
+    } catch (error) {
+      setError("An error occurred while connecting to the server.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const copy = async (text: string, field: "roll" | "pass") => {
     await navigator.clipboard.writeText(text);
@@ -97,12 +136,18 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <Link
-              href="/signin"
-              className="block w-full py-2.5 bg-[#3056D3] hover:bg-blue-700 text-white font-semibold rounded-lg text-sm text-center transition-colors shadow-sm"
+            <button
+              onClick={handleDemoLogin}
+              disabled={loading}
+              className={`block w-full py-2.5 bg-[#3056D3] hover:bg-blue-700 text-white font-semibold rounded-lg text-sm text-center transition-colors shadow-sm ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
-              Sign In to CGC Placement Portal
-            </Link>
+              {loading ? "Signing In..." : "Login with Demo Credentials"}
+            </button>
+            {error && (
+              <p className="mt-3 text-sm text-red-500 text-center">{error}</p>
+            )}
           </div>
         </div>
       </main>
