@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 import { useUserContext } from "@/app/(Context)/UserContext";
 
 const SignIn = () => {
-  const [roll_no, setRoll_no] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -21,12 +21,12 @@ const SignIn = () => {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:8000/student/signin", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ roll_no, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
@@ -49,14 +49,12 @@ const SignIn = () => {
   };
 
   return (
-    <div className="h-screen w-screen p-32">
-      <div className="rounded-sm bg-white shadow-default">
-        <div className="flex flex-wrap items-center">
-          <div className="w-1/6"></div>
-
-          <div className="w-1/3">
-            <div className="px-26 py-17 text-center">
-              <div className="inline-block">
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-8 lg:p-12 bg-slate-50">
+      <div className="w-full max-w-5xl rounded-sm bg-white shadow-default">
+        <div className="flex flex-col md:flex-row items-stretch w-full">
+          <div className="hidden md:flex w-full md:w-1/2 p-8 flex-col justify-center items-center bg-slate-50 border-r border-slate-100 rounded-l-sm">
+            <div className="text-center items-center flex flex-col">
+              <div className="inline-block mb-10">
                 <Image
                   className="hidden dark:block"
                   src={"/images/CGC-5.jpg"}
@@ -198,7 +196,7 @@ const SignIn = () => {
             </div>
           </div>
 
-          <div className="w-1/3">
+          <div className="w-full md:w-1/2 flex items-center justify-center">
             <div className="w-full p-4 sm:p-12 xl:p-17">
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
                 Sign In to CGC Placement Portal
@@ -207,14 +205,14 @@ const SignIn = () => {
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label className="mb-2 block font-medium text-black dark:text-white">
-                    Roll No.
+                    Email
                   </label>
                   <div className="relative">
                     <input
-                      type="text"
-                      placeholder="Enter your Roll No."
-                      value={roll_no}
-                      onChange={(e) => setRoll_no(e.target.value)}
+                      type="email"
+                      placeholder="Enter your Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none"
                     />
 
@@ -270,7 +268,6 @@ const SignIn = () => {
             </div>
           </div>
 
-          <div className="w-1/6"></div>
         </div>
       </div>
     </div>
